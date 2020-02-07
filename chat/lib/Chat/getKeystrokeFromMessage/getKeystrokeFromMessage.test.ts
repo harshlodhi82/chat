@@ -1,8 +1,8 @@
 import Chat from '../index'
 
 test('Chat.getKeystrokeFromMessage', async () => {
-	const username = 'test'
-	const duration = 100
+  const username = 'test'
+  const duration = 100
   const chat = Chat({messageKeyMappings: {up: 'u', 'down': 'd'}})
   let res
 
