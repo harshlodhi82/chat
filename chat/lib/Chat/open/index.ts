@@ -1,10 +1,6 @@
 import puppeteer from 'puppeteer'
 import log from 'lib/utils/logger'
-
-interface ChatMessage {
-  username: string
-  message: string
-}
+import {ChatMessage} from '../interfaces'
 
 const open = async function () {
   // this.browser = puppeteer browser
