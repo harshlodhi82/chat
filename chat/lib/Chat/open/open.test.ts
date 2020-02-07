@@ -8,7 +8,7 @@ test('Chat.open', async (done) => {
     expect(typeof username).toBe('string')
 
     if (messageCount++ > 10) {
-    	await chat.browser.close()
+      await chat.browser.close()
       done()
     }
   })
