@@ -73,18 +73,6 @@ log.info('hello')
 
 If code gets too big in one file, split it into 2 files inside the same folder. Do not create more folders or files outside the folder.
 
-## Wordpress tests
-
-Must have docker running:
-```
-bin/wp-bash
-```
-This will build wordpress images and give a shell inside the container with a wordpress site at url `http://wordpress-test/site-1/` (only accessible inside the container)
-```
-npm install
-npm test wordpress
-```
-
 ## How to submit work
 
 Do not send work in text files in messenger for review. Send a pull request as shown in this video https://www.youtube.com/watch?v=rgbCcBNZcdQ
