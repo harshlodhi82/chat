@@ -7,12 +7,19 @@ class Chat extends EventEmitter {
   open = open
   getKeystrokeFromMessage = getKeystrokeFromMessage
   messageKeyMappings = {}
+  messageInterval = null
   page = null
   browser = null
+
   constructor ({url, messageKeyMappings}) {
     super()
     this.url = url
     this.messageKeyMappings = messageKeyMappings
+  }
+
+  close = async () => {
+    await clearInterval(this.messageInterval)
+    await this.browser.close()
   }
 }
 
