@@ -21,9 +21,9 @@ const _getValidKey = (keys: Array<string>, message: string): string => {
 }
 
 const _isValidArgs = (username, message) => {
-  if (!username && !message) throw Error(`username ${username} and message ${message} is invalid.`)
-  if (!username) throw Error(`username ${username} is invalid.`)
-  if (!message) throw Error(`message ${message} is invalid.`)
+  if (!username && !message) throw Error(`username '${username}' and message '${message}' is invalid.`)
+  if (!username) throw Error(`username '${username}' is invalid.`)
+  if (!message) throw Error(`message '${message}' is invalid.`)
 }
 
 const _returnValue = (self, message: string, validKey: string, duration: number): Keystroke => {
