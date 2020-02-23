@@ -4,16 +4,15 @@ const getKeystrokeFromMessage = function (chatMessage: ChatMessage): Keystroke {
   const {username, message} = chatMessage
   _isValidArgs(username, message)
   const keys = Object.keys(this.messageKeyMappings)
-  let splitMessageArray = message.trim().split(' ')
-  let validKey = _getValidKey(keys, splitMessageArray)
-  return _returnValue(this, validKey, 100)
+  let validKey = _getValidKey(keys, message)
+  return _returnValue(this, message, validKey, 100)
 }
 
-const _getValidKey = (keys: Array<string>, splitMessageArray: Array<string>) => {
+const _getValidKey = (keys: Array<string>, message: string): string => {
   let validKey
   for (let index = 0; index < keys.length; index++) {
     const key = keys[index]
-    if (_isKeyValid(splitMessageArray, key)) {
+    if (key.trim().toLowerCase() === message.trim().toLowerCase()) {
       validKey = key
       break
     }
@@ -21,24 +20,20 @@ const _getValidKey = (keys: Array<string>, splitMessageArray: Array<string>) => 
   return validKey
 }
 
-const _isKeyValid = (splitMessageArray: Array<string>, key: string) => {
-  return splitMessageArray && splitMessageArray.length > 0 && splitMessageArray[0].toLowerCase().indexOf(key) !== -1
-}
-
 const _isValidArgs = (username, message) => {
-  if (!username && !message) throw Error('Username and Message is invalid.')
-  if (!username) throw Error('Username is invalid.')
-  if (!message) throw Error('Message is invalid.')
+  if (!username && !message) throw Error(`username ${username} and message ${message} is invalid.`)
+  if (!username) throw Error(`username ${username} is invalid.`)
+  if (!message) throw Error(`message ${message} is invalid.`)
 }
 
-const _returnValue = (self, validKey, duration) => {
-  if (validKey) {
+const _returnValue = (self, message: string, validKey: string, duration: number): Keystroke => {
+  if (validKey && message.trim().length !== 1) {
     return {
       key: self.messageKeyMappings[validKey],
       duration
     }
   }
-  return null
+  return self.messageKeyMappings[validKey]
 }
 
 export default getKeystrokeFromMessage

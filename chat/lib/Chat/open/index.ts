@@ -6,16 +6,16 @@ const open = async function () {
   this.browser = await puppeteer.launch({headless: false})
   this.page = await this.browser.newPage()
   await this.page.goto(this.url)
-  await _waitForSelectors(this.page)
+  await this.page.waitFor(_waitForSelectors)
   this.messageInterval = setInterval(async () => {
     let chatArray = await this.page.evaluate(_getChatsArray)
     _emitChats(chatArray, this)
   }, 500)
 }
 
-const _waitForSelectors = async (page) => {
-  await page.waitForSelector('#container', {visible: true})
-  await page.waitForSelector('#chatframe', {visible: true})
+const _waitForSelectors = () => {
+  return document.querySelector('#container')
+    && document.querySelector('#chatframe')
 }
 
 const _getChatsArray = () => {
