@@ -24,7 +24,9 @@ test('Chat.getKeystrokeFromMessage', () => {
   res = chat.getKeystrokeFromMessage({username, message: 'something'})
   expect(res).toBeFalsy()
 
-  // expect(() => chat.getKeystrokeFromMessage({message: 'something'})).toThrow()
+  expect(() => chat.getKeystrokeFromMessage({username: null, message: null})).toThrow()
 
-  // expect(() => chat.getKeystrokeFromMessage({username})).toThrow()
+  expect(() => chat.getKeystrokeFromMessage({username: null, message: 'something'})).toThrow()
+
+  expect(() => chat.getKeystrokeFromMessage({username, message: null})).toThrow()
 })

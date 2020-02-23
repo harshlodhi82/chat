@@ -1,5 +1,4 @@
 import puppeteer from 'puppeteer'
-import pRetry from 'p-retry'
 import {ChatMessage} from '../interfaces'
 import log from 'lib/utils/logger'
 
@@ -9,38 +8,27 @@ const open = async function () {
   await this.page.goto(this.url)
   await _waitForSelectors(this.page)
   this.messageInterval = setInterval(async () => {
-    try {
-      await this.page.evaluate(_getChatsArray).then(_emitChats.bind(this))
-    }
-    catch (error) {
-      // log.info(error)
-    }
+    let chatArray = await this.page.evaluate(_getChatsArray)
+    _emitChats(chatArray, this)
   }, 500)
 }
 
 const _waitForSelectors = async (page) => {
-  await page.waitForSelector('#container', {visible: true}).then(() => {
-    log.info('container showing')
-  })
-  await page.waitForSelector('#chatframe', {visible: true}).then(() => {
-    log.info('chatframe showing')
-  })
-  await page.waitForSelector('.ytp-play-button', {visible: true}).then(() => {
-    log.info('ytp-large-play-button showing')
-  })
+  await page.waitForSelector('#container', {visible: true})
+  await page.waitForSelector('#chatframe', {visible: true})
 }
 
 const _getChatsArray = () => {
-  let playButton: any = document.querySelector('.ytp-play-button')
-  playButton.click()
-  let chatframe: any = document.querySelector('#chatframe')
+  const playButton: any = document.querySelector('.ytp-play-button')
+  const video: any = document.querySelector('.video-stream')
+  if (video && video.paused) playButton.click()
   let allChats: Array<any> = []
-  if (chatframe && chatframe.contentDocument !== undefined) {
-    allChats = chatframe.contentDocument.querySelectorAll('#items')[1].querySelectorAll('.yt-live-chat-item-list-renderer')
-  }
-  let chatArray = []
+  let chatArray: Array<any> = []
+  const chatframe: any = document.querySelector('#chatframe')
+  const chatframeDocument = chatframe.contentDocument.querySelectorAll('#items')[1]
+  const scroller = chatframe.contentDocument.querySelector('#item-scroller')
+  if (chatframeDocument) allChats = chatframeDocument.querySelectorAll('.yt-live-chat-item-list-renderer')
   for (let index = 0; index < allChats.length; index++) {
-    playButton.click()
     const chat = allChats[index]
     const message = chat.querySelector('#message')
     if (message && message.textContent.split('##')[message.textContent.split('##').length - 1] !== '@@@@@') {
@@ -51,30 +39,16 @@ const _getChatsArray = () => {
       }
     }
   }
+  if (scroller && chatArray.length === 0) scroller.scroll(0, scroller.scrollHeight)
   return chatArray
 }
 
-const _emitChats = function (chatArray: Array<ChatMessage>) {
+const _emitChats = function (chatArray: Array<ChatMessage>, self) {
+  log.info(chatArray)
   for (let index = 0; index < chatArray.length; index++) {
     const chat = chatArray[index]
-    this.emit('message', chat)
+    self.emit('message', chat)
   }
 }
-
-// const _clickPlay = async function (self) {
-//   await self.page.click('.ytp-play-button')
-// }
-
-// const _reloadPage = async function (self) {
-//   await self.page.reload(self.url)
-// }
-
-// const _clickPlayWithRetry = async function (self) {
-//   const res = await pRetry(() => _clickPlay(self), {
-//     retries: 10,
-//     onFailedAttempt: () => _reloadPage(self)
-//   })
-//   return res
-// }
 
 export default open
