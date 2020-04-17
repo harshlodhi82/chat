@@ -18,7 +18,7 @@ class Chat extends EventEmitter {
   windowActivatorInterval = null
   page = null
   browser = null
-  windowActivatorIntervalTime = 2000
+  windowActivatorIntervalTime = 5000
 
   constructor ({url, keystrokeDuration, messageKeyMappings, windowName}) {
     super()
