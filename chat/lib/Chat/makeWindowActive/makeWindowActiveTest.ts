@@ -9,5 +9,7 @@ const chat = Chat({
     '3 random words': 'random output',
     '2': '2',
     a: 'A'
-  }
+  },
+  windowName: "notepad"
+
 })

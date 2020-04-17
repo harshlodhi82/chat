@@ -7,7 +7,7 @@ const sendKeystrokeToWindow = async function (keystroke: Keystroke) {
     return resData
   }
   catch (error) {
-    throw error
+    throw Error(`failed sending keystroke '${keystroke}': ${error.message}`)
   }
 }
 

@@ -5,7 +5,7 @@ const getKeystrokeFromMessage = function (chatMessage: ChatMessage): Keystroke {
   _isValidArgs(username, message)
   const keys = Object.keys(this.messageKeyMappings)
   let validKey = _getValidKey(keys, message)
-  return _returnValue(this, message, validKey, 100)
+  return _returnValue(this, message, validKey, this.keystrokeDuration)
 }
 
 const _getValidKey = (keys: Array<string>, message: string): string => {

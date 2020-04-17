@@ -68,4 +68,6 @@ test('Chat.getKeystrokeFromMessage', () => {
   expect(() => chat.getKeystrokeFromMessage({username: null, message: `doesn't exist`})).toThrow()
 
   expect(() => chat.getKeystrokeFromMessage({username, message: null})).toThrow()
+
+  chat.clearActiveWindowInterval()
 })

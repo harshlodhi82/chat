@@ -7,6 +7,7 @@ import makeWindowActive from './makeWindowActive'
 class Chat extends EventEmitter {
   url: string = null
   windowName: string = null
+  keystrokeDuration:Number = null
   open = open
   getKeystrokeFromMessage = getKeystrokeFromMessage
   sendKeystrokeToWindow = sendKeystrokeToWindow
@@ -17,12 +18,13 @@ class Chat extends EventEmitter {
   windowActivatorInterval = null
   page = null
   browser = null
-  activeWindowTime = 5000
+  windowActivatorIntervalTime = 2000
 
-  constructor ({url, messageKeyMappings}) {
+  constructor ({url, keystrokeDuration, messageKeyMappings, windowName}) {
     super()
     this.url = url
-    this.windowName = 'notepad'
+    this.keystrokeDuration = keystrokeDuration
+    this.windowName = windowName
     this.messageKeyMappings = messageKeyMappings
     this.makeWindowActive()
   }
