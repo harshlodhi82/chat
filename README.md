@@ -31,6 +31,10 @@ For the task to be complete it must pass the flaky test suite
 cd chat
 npm run test:flaky fileName
 ```
+## NirCmd Installation
+
+- Path: chat/bin/nircmd
+- Run the nircmd.exe as administrator then click `Copy To Window Directory` button, It'll initialize the nircmd with your windows environment.
 
 ## Linting & typescript
 
