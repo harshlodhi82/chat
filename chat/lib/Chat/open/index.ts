@@ -5,7 +5,7 @@ import log from 'lib/utils/logger'
 const open = async function () {
   this.browser = await puppeteer.launch({headless: false})
   this.page = await this.browser.newPage()
-  await this.page.goto(this.url)
+  await this.page.goto(this.url, {waitUntil: 'load', timeout: 0})
   await _waitForSelectors(this.page)
   this.messageInterval = setInterval(async () => {
     let chatArray = await this.page.evaluate(_getChatsArray)
@@ -44,7 +44,6 @@ const _getChatsArray = () => {
 }
 
 const _emitChats = function (chatArray: Array<ChatMessage>, self) {
-  log.info(chatArray)
   for (let index = 0; index < chatArray.length; index++) {
     const chat = chatArray[index]
     self.emit('message', chat)

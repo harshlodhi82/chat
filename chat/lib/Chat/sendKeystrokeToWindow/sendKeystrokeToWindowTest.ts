@@ -12,7 +12,7 @@ const chat = Chat({
     '2': '2',
     a: 'A'
   },
-  windowName: "notepad"
+  windowName: 'notepad'
 })
 
 const keystroke = chat.getKeystrokeFromMessage({username, message: 'up'})
