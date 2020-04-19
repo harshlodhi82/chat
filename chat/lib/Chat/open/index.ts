@@ -1,9 +1,9 @@
 import puppeteer from 'puppeteer'
 import {ChatMessage} from '../interfaces'
-import log from 'lib/utils/logger'
+import settings from '../../../settings'
 
 const open = async function () {
-  this.browser = await puppeteer.launch({headless: false})
+  this.browser = await puppeteer.launch({headless: false, executablePath: settings.executablePath})
   this.page = await this.browser.newPage()
   await this.page.goto(this.url, {waitUntil: 'load', timeout: 0})
   await _waitForSelectors(this.page)

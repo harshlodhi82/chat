@@ -27,13 +27,12 @@ const _isValidArgs = (username, message) => {
 }
 
 const _returnValue = (self, message: string, validKey: string, duration: number): Keystroke => {
-  if (validKey && message.trim().length !== 1) {
+  if (validKey) {
     return {
       key: self.messageKeyMappings[validKey],
       duration
     }
   }
-  return self.messageKeyMappings[validKey]
 }
 
 export default getKeystrokeFromMessage
