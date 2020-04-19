@@ -11,7 +11,7 @@ const chat = Chat({windowName, url, keystrokeDuration, messageKeyMappings})
 /** Command :: ts-node ./bin/start.ts --windowName="notepad" --url="https://www.youtube.com/watch?v=Jl6X40D0CGE" --keystrokeDuration=100 --messageKeyMappings.finally="finally"  --messageKeyMappings.LOL="shift" --messageKeyMappings.LOL="j" --messageKeyMappings.up="up" */
 
 const index = async () => {
-  keyMapper()
+  parseKeyMappingsCliArguments()
   chat.on('message', chatOnCallBack)
   await chat.open()
 }
@@ -25,7 +25,7 @@ const chatOnCallBack = async ({message, username}) => {
   }
 }
 
-const keyMapper = () => {
+const parseKeyMappingsCliArguments = () => {
   Object.keys(messageKeyMappings).forEach((key) => {
     if (!Array.isArray(messageKeyMappings[key])) {
       messageKeyMappings[key] = [messageKeyMappings[key]]
