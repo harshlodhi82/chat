@@ -12,8 +12,6 @@ const chat = Chat({windowName, url, keystrokeDuration, messageKeyMappings})
 
 const index = async () => {
   keyMapper()
-  console.log(messageKeyMappings);
-  
   chat.on('message', chatOnCallBack)
   await chat.open()
 }
@@ -27,13 +25,12 @@ const chatOnCallBack = async ({message, username}) => {
   }
 }
 
-const keyMapper = ()=>{
-  Object.keys(messageKeyMappings).forEach((key)=>{
-    if(!Array.isArray(messageKeyMappings[key])){
+const keyMapper = () => {
+  Object.keys(messageKeyMappings).forEach((key) => {
+    if (!Array.isArray(messageKeyMappings[key])) {
       messageKeyMappings[key] = [messageKeyMappings[key]]
     }
   })
 }
-
 
 index()

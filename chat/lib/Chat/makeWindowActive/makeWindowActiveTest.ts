@@ -11,5 +11,4 @@ const chat = Chat({
     a: 'A'
   },
   windowName: 'notepad'
-
 })

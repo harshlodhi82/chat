@@ -3,7 +3,7 @@ import keySender from 'node-key-sender'
 
 const sendKeystrokeToWindow = async function (keystroke: Keystroke) {
   try {
-    let keys = keystroke.key
+    let keys = keystroke.keys
     let resData = await keySender.sendCombination(keys)
     return resData
   }

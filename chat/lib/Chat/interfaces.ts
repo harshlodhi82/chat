@@ -4,7 +4,7 @@ interface ChatMessage {
 }
 
 interface Keystroke {
-  key: string
+  keys: string[]
   duration: number
 }
 

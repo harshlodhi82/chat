@@ -19,34 +19,34 @@ test('Chat.getKeystrokeFromMessage', () => {
   let res
 
   res = chat.getKeystrokeFromMessage({username, message: 'up'})
-  expect(res).toEqual({key: ['u'], duration})
+  expect(res).toEqual({keys: ['u'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'Up'})
-  expect(res).toEqual({key: ['u'], duration})
+  expect(res).toEqual({keys: ['u'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'down'})
-  expect(res).toEqual({key: ['d'], duration})
+  expect(res).toEqual({keys: ['d'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'down '})
-  expect(res).toEqual({key: ['d'], duration})
+  expect(res).toEqual({keys: ['d'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'down '})
-  expect(res).toEqual({key: ['d'], duration})
+  expect(res).toEqual({keys: ['d'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'a down '})
   expect(res).toBe(undefined)
 
   res = chat.getKeystrokeFromMessage({username, message: 'One-random-word'})
-  expect(res).toEqual({key: ['one'], duration})
+  expect(res).toEqual({keys: ['one'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'one random-word'})
   expect(res).toBe(undefined)
 
   res = chat.getKeystrokeFromMessage({username, message: '3 Random Words'})
-  expect(res).toEqual({key: ['random output'], duration})
+  expect(res).toEqual({keys: ['random output'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: ' 3 random words'})
-  expect(res).toEqual({key: ['random output'], duration})
+  expect(res).toEqual({keys: ['random output'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: ' 3 random word'})
   expect(res).toBe(undefined)
@@ -58,19 +58,19 @@ test('Chat.getKeystrokeFromMessage', () => {
   expect(res).toBe(undefined)
 
   res = chat.getKeystrokeFromMessage({username, message: 'One-random-word'})
-  expect(res).toEqual({key: ['one'], duration})
+  expect(res).toEqual({keys: ['one'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: '2'})
-  expect(res).toEqual({key: ['2'], duration})
+  expect(res).toEqual({keys: ['2'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'a'})
-  expect(res).toEqual({key: ['A'], duration})
+  expect(res).toEqual({keys: ['A'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'jump'})
-  expect(res).toEqual({key: ['shift', 'j'], duration})
+  expect(res).toEqual({keys: ['shift', 'j'], duration})
 
   res = chat.getKeystrokeFromMessage({username, message: 'JUMP'})
-  expect(res).toEqual({key: ['shift', 'j'], duration})
+  expect(res).toEqual({keys: ['shift', 'j'], duration})
 
   expect(() => chat.getKeystrokeFromMessage({username: null, message: `doesn't exist`})).toThrow()
 
