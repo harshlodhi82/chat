@@ -3,7 +3,8 @@ import keySender from 'node-key-sender'
 
 const sendKeystrokeToWindow = async function (keystroke: Keystroke) {
   try {
-    let keys = keystroke.keys
+    const {keys, duration} = keystroke
+    keySender.setOption('globalDelayPressMillisec', duration)
     let resData = await keySender.sendCombination(keys)
     return resData
   }
